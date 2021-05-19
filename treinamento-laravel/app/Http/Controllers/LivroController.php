@@ -15,7 +15,7 @@ class LivroController extends Controller
     public function index()
     {
         $livros = Livro::all();
-        return view('listarLivros')->withLivro($livros);
+        return $livros;
     }
 
     /**
@@ -36,11 +36,11 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        Livro::create([
+        $l = Livro::create([
             'nome' => $request->nome,
             'autor' => $request->autor,
         ]);
-        return "Livro Criado com Sucesso! <a href='" . route('index.livro') . "' >Voltar ao Index</a>";
+        return $l;
     }
 
     /**
@@ -51,7 +51,7 @@ class LivroController extends Controller
      */
     public function show($id)
     { 
-        return view('verLivro', ['livro' => Livro::findOrFail($id)]);
+        return Livro::findOrFail($id);
     }
 
     /**
@@ -72,14 +72,18 @@ class LivroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Livro::findOrFail($id)->update([
+        $l = Livro::findOrFail($id)->update([
             $livro->nome = $request->nome,
             $livro->autor = $request->autor,
         ]);
        
-        return "Livro Atualizado com Sucesso! <a href='" . route('index.livro') . "' >Voltar ao Index</a>";
+        return $l;
     }
 
+    /**
+     * Show the form for deleting the specified resource.
+     *
+     */
     public function delete($id)
     {
         return view('deletarLivro', ['livro' => Livro::findOrFail($id)]);
@@ -91,8 +95,8 @@ class LivroController extends Controller
      */
     public function destroy($id)
     {
-        Livro::findOrFail($id)->delete();
+        $l = Livro::findOrFail($id)->delete();
 
-        return "Livro Excluído com Sucesso <a href='" . route('index.livro') . "' >Voltar ao Index</a>";
+        return $l;
     }
 }
