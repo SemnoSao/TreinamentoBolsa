@@ -3,7 +3,7 @@ const dbControl = Vue.createApp({
         return {
             headers: [],
             books: [],
-            currentObj: []
+            currentObj: {}
         }
     },
     mounted() {
@@ -19,7 +19,7 @@ const dbControl = Vue.createApp({
                 });
                 this.currentObj = {}
                 for(h in this.headers){
-                    this.currentObj[h] = ""
+                    this.currentObj[h] = "a"
                 }
             }
         }
