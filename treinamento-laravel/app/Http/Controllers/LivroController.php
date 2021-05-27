@@ -36,11 +36,11 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        $l = Livro::create([
+        Livro::create([
             'nome' => $request->nome,
             'autor' => $request->autor,
         ]);
-        return $l;
+        return Livro::all();
     }
 
     /**
@@ -73,11 +73,11 @@ class LivroController extends Controller
     public function update(Request $request, $id)
     {
         $l = Livro::findOrFail($id)->update([
-            $livro->nome = $request->nome,
-            $livro->autor = $request->autor,
+            'nome' => $request->nome,
+            'autor' => $request->autor,
         ]);
        
-        return $l;
+        return Livro::all();
     }
 
     /**
@@ -97,6 +97,6 @@ class LivroController extends Controller
     {
         $l = Livro::findOrFail($id)->delete();
 
-        return $l;
+        return Livro::all();
     }
 }

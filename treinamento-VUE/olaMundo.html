@@ -6,7 +6,7 @@
     </head>
     <body>
         <div id="dbControl" style="display: flex; justify-content:space-around;" >
-            <table class="table table-striped table-bordered table-hover" style="width: 70%; "  @mouseover="this.mouseOnIndexList = true" @mouseout="this.mouseOnIndexList = false">
+            <table class="table table-striped table-bordered table-hover" style="width: 70%; " >
                 <thead>
                     <tr>
                         <th v-for="header in headers">{{ header }}</td>
@@ -21,14 +21,13 @@
             <div id="editor" style="width: 20%; " >
                 
                     <label v-for="header in headers">{{ header }}
-                        <input type="text" :name="header" :value="currentObj[header]"/>
+                        <input type="text" :name="header" v-model="currentObj[header]"/>
                     </label>
-                    <button name="create" >Adicionar </button>
-                    <button name="update" >Editar </button>
-                    <button name="destroy" >Excluir </button>
+                    <button name="create" @click="create()">Adicionar </button>
+                    <button name="update" @click="update()">Editar </button>
+                    <button name="destroy" @click="destroy()">Excluir </button>
 
             </div>
-            <label v-for="v in Object.keys(currentObj)">{{ v }}</label>
         </div>
     </body>
     <script src="vue.js"></script>

@@ -17,11 +17,32 @@ const dbControl = Vue.createApp({
                 this.headers = Object.keys(this.books[1]).filter(function(value, index, arr){ 
                     return (value != "created_at" && value != "updated_at");
                 });
-                this.currentObj = {}
-                for(h in this.headers){
-                    this.currentObj[h] = "a"
-                }
             }
+        }
+    },
+    methods: {
+        create: function(){
+            axios
+                .post('http://localhost/livros/cadastrar', 
+                {
+                    nome: this.currentObj['nome'],
+                    autor: this.currentObj['autor']
+                })
+                .then(response => (this.books = response.data))
+        },
+        destroy: function(){
+            axios
+                .post('http://localhost/livro/'+this.currentObj['id']+'/excluir')
+                .then(response => (this.books = response.data))
+        },
+        update: function(){
+            axios
+                .post('http://localhost/livro/'+this.currentObj['id']+'/editar', 
+                {
+                   nome: this.currentObj['nome'],
+                   autor: this.currentObj['autor']
+                })
+                .then(response => (this.books = response.data))
         }
     }
 
