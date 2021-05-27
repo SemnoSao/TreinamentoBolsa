@@ -6,14 +6,14 @@
     </head>
     <body>
         <div id="dbControl" style="display: flex; justify-content:space-around;" >
-            <table class="table table-striped table-bordered table-hover" style="width: 70%; " >
+            <table class="table table-striped table-bordered table-hover" id="table" style="width: 70%; " >
                 <thead>
                     <tr>
                         <th v-for="header in headers">{{ header }}</td>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr v-for="book in books" :key="book.id" @click="">
+                <tbody @click="link($event)">
+                    <tr v-for="book in books" :key="book.id" :id="book.id" >
                         <td v-for="header in headers">{{book[header]}}</td>
                     </tr>
                 </tbody>

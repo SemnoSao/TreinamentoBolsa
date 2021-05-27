@@ -43,6 +43,9 @@ const dbControl = Vue.createApp({
                    autor: this.currentObj['autor']
                 })
                 .then(response => (this.books = response.data))
+        },
+        link: function(event){
+            for (i=0;i<this.headers.length;i++) this.currentObj[this.headers[i]] = event.target.parentElement.cells[i].innerHTML;
         }
     }
 
