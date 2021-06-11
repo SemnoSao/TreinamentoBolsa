@@ -28,7 +28,10 @@ const dbControl = Vue.createApp({
             currentObj: {}
         }
     },
-    computed:{
+    mounted() {
+        this.$store.dispatch('loadItems')
+    },
+    computed: {
         books() {
             return this.$store.state.books
         },
