@@ -1,14 +1,17 @@
-const store = new Vuex.Store({
-    state: {
-        books: []
+const store = Vuex.createStore({
+    state () {
+        return{
+            books: []
+        }
     },
     getters: {
-        headers: state => {
-            return Object.keys(this.books[1]).filter(value => (value != "created_at" && value != "updated_at"));
+        headers (state) {
+            if(state.books.length) return Object.keys(state.books[0]).filter(value => (value != "created_at" && value != "updated_at"));
+            else return undefined
         }
     },
     mutations: {
-        SET_Item (state, items) {
+        SET_Items (state, items) {
             state.books = items
         }
     },
@@ -16,13 +19,13 @@ const store = new Vuex.Store({
         loadItems ({ commit }){
             axios
                 .get('http://localhost/livros')
-                .then(response => commit('SET_Items', items))
+                .then(response => response.data)
+                .then(items => commit('SET_Items', items))
         }
     }
 });
 
 const dbControl = Vue.createApp({
-    store,
     data(){
         return {
             currentObj: {}
@@ -69,5 +72,6 @@ const dbControl = Vue.createApp({
     }
 })
 
+dbControl.use(store)
 dbControl.mount('#dbControl')
 
